@@ -1,9 +1,0 @@
-Use
-
-_$('#selector')
-
-instead of
-
-$('#selector')
-
-to cache the selection :)

@@ -3,26 +3,20 @@
  * @selection - string, the jquery selector
  * @refresh - boolean, do we want to refresh the cached selection?
  */
-var selectionCache = function(selection, refresh) {
+/*globals window:true, jQuery:true */
+(function ($) {
+    var cache = {},
+        fn = function (selection, refresh) {
+          
+            // Create or update cached selector
+            if (typeof cache[selection] === 'undefined' || refresh) {
+                cache[selection] = $(selection);
+            }
 
-  // Create storage variable if missing
-  if(typeof this.elements == 'undefined') {
-    this.elements = [];
-  }
+            return cache[selection];
+        };
 
-  // Make selection and save
-  if(typeof this.elements[selection] == 'undefined') {
-    this.elements[selection] = $(selection);
-  }
+    // Make availible globally
+    window._$ = fn;
 
-  // Refresh if requested
-  if(refresh) {
-    this.elements[selection] = $(selection);
-  }
-
-  // Return seletion
-  return this.elements[selection];
-}
-
-// Make availible globally
-window._$ = selectionCache;
+})(jQuery);
